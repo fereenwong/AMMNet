@@ -1,0 +1,54 @@
+dataset:
+  common:
+    NAME: NYU
+    data_root: /data/1-Dataset/SSC/NYU
+  train:
+    split: train
+    loop: 1
+  val:
+    split: test
+  test:
+    split: test
+
+num_classes: 12
+batch_size: 2
+val_batch_size: 1
+
+dataloader:
+  num_workers: 6
+
+# ---------------------------------------------------------------------------- #
+# Training cfgs
+# ---------------------------------------------------------------------------- #
+val_fn: validate
+ignore_index: null 
+epochs: 150
+
+cls_weighed_loss: False
+
+criterion:
+  NAME: CrossEntropy
+  ignore_index: 255
+  label_smoothing: 0.2
+
+optimizer:
+ NAME: 'adamw'
+ weight_decay: 0.05
+
+# lr_scheduler:
+sched: cosine
+warmup_epochs: 0
+
+min_lr: 1.0e-7 #
+lr: 0.001
+
+grad_norm_clip: 10
+use_voting: False
+# ---------------------------------------------------------------------------- #
+# io and misc
+# ---------------------------------------------------------------------------- #
+save_freq: -1 # save epoch every xxx epochs, -1 only save last and best. 
+val_freq: 1
+
+wandb:
+  project: AMMNet
